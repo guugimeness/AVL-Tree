@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node {
+struct Node{
     int key;                // chave 
     int height;             // altura
     struct Node *left;      // referência para o filho à esquerda
