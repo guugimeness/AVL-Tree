@@ -31,6 +31,7 @@ int main(){
     printf("\n");
 
     printTree(root, 0, ' ');
+    printf("---------------------->\n");
     printf("\n");
 
     printf("3) Calcular fator de balanço de todos os nós: \n");
@@ -48,6 +49,7 @@ int main(){
     printf("\n");
 
     printTree(root, 0, ' ');
+    printf("---------------------->\n");
     printf("\n");
 
     printf("6) Calcular fator de balanço de todos os nós: \n");
