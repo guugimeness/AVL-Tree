@@ -1,13 +1,13 @@
 #include "avl_tree.h"
 
-int getHeight(struct Node *n){
+int getHeight(Node *n){
     if(n==NULL)
         return 0;
     return n->height;
 }
 
-struct Node *createNode(int key){
-    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+Node *createNode(int key){
+    Node* node = (Node*)malloc(sizeof(Node));
 
     node->key = key;
     node->left = NULL;
@@ -17,7 +17,7 @@ struct Node *createNode(int key){
     return node;
 }
 
-struct Node *insertNode(struct Node *root, int key){        // inserir_chave
+Node *insertNode(Node *root, int key){        // inserir_chave
 
     // encontra a posição correta e insere o nó
     if(root==NULL)
@@ -49,7 +49,7 @@ struct Node *insertNode(struct Node *root, int key){        // inserir_chave
     return root;
 }
 
-struct Node *searchKey(struct Node *root, int key){     // buscar_chave
+Node *searchKey(Node *root, int key){     // buscar_chave
     if(root==NULL | key==root->key)
         return root;
     if(key<root->key)   // buscar na sub-árvore à esquerda
@@ -58,7 +58,7 @@ struct Node *searchKey(struct Node *root, int key){     // buscar_chave
         return searchKey(root->right, key);
 }
 
-struct Node* removeNode(struct Node *root, int key){        // remover_chave
+Node* removeNode(Node *root, int key){        // remover_chave
     if(root == NULL)
         return root;
 
@@ -70,7 +70,7 @@ struct Node* removeNode(struct Node *root, int key){        // remover_chave
 
         // nó com apenas um filho ou sem filhos
         if ((root->left == NULL) || (root->right == NULL)){
-            struct Node *temp = root->left ? root->left : root->right;
+            Node *temp = root->left ? root->left : root->right;
 
             if(temp == NULL){
                 temp = root;
@@ -83,7 +83,7 @@ struct Node* removeNode(struct Node *root, int key){        // remover_chave
         } else{
 
             // nó com dois filhos: obter o sucessor inorder (menor nó da sub-árvore à direita)
-            struct Node *temp = treeSucessor(root->right);
+            Node *temp = treeSucessor(root->right);
 
             root->key = temp->key;
 
@@ -123,7 +123,7 @@ struct Node* removeNode(struct Node *root, int key){        // remover_chave
     return root;
 }
 
-void inOrder(struct Node *root){        // inorder
+void inOrder(Node *root){        // inorder
     if(root!=NULL){
         inOrder(root->left);
         printf("%d\n", root->key);
@@ -131,8 +131,8 @@ void inOrder(struct Node *root){        // inorder
     }
 }
 
-struct Node *treeSucessor(struct Node* n){      // sucessor
-    struct Node *current = n;
+Node *treeSucessor(Node* n){      // sucessor
+     Node *current = n;
 
     // encontrar a folha mais à esquerda (menor nó da sub-árvore)
     while (current->left != NULL)
@@ -141,7 +141,7 @@ struct Node *treeSucessor(struct Node* n){      // sucessor
     return current;
 }
 
-int getBalance(struct Node *n){     // fator_balanco
+int getBalance(Node *n){     // fator_balanco
     if(n==NULL)
         return 0;
 
@@ -150,8 +150,8 @@ int getBalance(struct Node *n){     // fator_balanco
     return h_left-h_right;      
 }
 
-struct Node *leftRotate(struct Node *n){        // rotacao_esq
-    struct Node *y = n->right;
+Node *leftRotate(Node *n){        // rotacao_esq
+     Node *y = n->right;
     n->right = y->left;
     y->left = n;
 
@@ -162,8 +162,8 @@ struct Node *leftRotate(struct Node *n){        // rotacao_esq
     return y;
 }
 
-struct Node *rightRotate(struct Node *n){       // rotacao_dir
-    struct Node *x = n->left;
+Node *rightRotate(Node *n){       // rotacao_dir
+     Node *x = n->left;
     n->left = x->right;
     x->right = n;
 
@@ -174,17 +174,17 @@ struct Node *rightRotate(struct Node *n){       // rotacao_dir
     return x;
 }
 
-struct Node *leftRightRotate(struct Node *n){       // rotacao_esq_dir
+Node *leftRightRotate(Node *n){       // rotacao_esq_dir
     n->left = leftRotate(n->left);
     return rightRotate(n);
 }
 
-struct Node *rightLeftRotate(struct Node *n){       // rotacao_dir_esq
+Node *rightLeftRotate(Node *n){       // rotacao_dir_esq
     n->right = rightRotate(n->right);
     return leftRotate(n);
 }
 
-void printTree(struct Node *root, int depth, char prefix) {     // função para imprimir a árvore
+void printTree(Node *root, int depth, char prefix) {     // função para imprimir a árvore
     if (root == NULL)
         return;
 
@@ -198,11 +198,19 @@ void printTree(struct Node *root, int depth, char prefix) {     // função para
     printTree(root->left, depth + 1, '\\');
 }
 
-void printBalance(struct Node *root){       // calcular o fator de balanço de todos os nós
+void printBalance(Node *root){       // calcular o fator de balanço de todos os nós
     if(root!=NULL){
         int balanceF = getBalance(root);
         printBalance(root->left);
         printf("(%d) = %d\n", root->key, balanceF);
         printBalance(root->right);
+    }
+}
+
+void freeTree(Node* root){
+    if (root!=NULL){
+        freeTree(root->left);  // libera a memória da subárvore esquerda
+        freeTree(root->right); // libera a memória da subárvore direita
+        free(root);            // libera a memória do nó atual
     }
 }
