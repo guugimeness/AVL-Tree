@@ -1,7 +1,7 @@
 #include "avl_tree.c"
 
 int main(){
-    struct Node *root = NULL;
+    Node *root = NULL;
 
     printf("1) Inserindo as chaves na árvore...\n");
     root = insertNode(root, 11);
@@ -56,4 +56,8 @@ int main(){
     printBalance(root);
     printf("\n");
 
+    // liberando a memória alocada
+    freeTree(root);
+
+    return 0;
 };
