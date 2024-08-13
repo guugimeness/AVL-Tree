@@ -3,7 +3,8 @@
 ### O que são?
 - *Árvore AVL*, ou ainda *Árvore Binária de Busca Balanceada*, é uma estrutura de dados do tipo árvore desenvolvida para contornar um problema comum nas árvores de busca tradicionais: padrão de crescimento irregular e desbalanceado. Esse problema acaba muitas vezes por tornar as operações de inserção, busca e remoção menos eficientes.
 - A estratégia para evitar esse inconveniente foi adicionar ao nó da árvore um fator de balanço, definido como:  
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $x.b = h_L - h_R$, em que $h_L$ é a altura da subárvore à esquerda e $h_R$ é a altura da subárvore à direita.  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $x.b = h_L - h_R$  
+em que $h_L$ é a altura da subárvore à esquerda e $h_R$ é a altura da subárvore à direita.  
 Dessa forma, uma árvore AVL é dita balanceada quando:  
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; $∀ x ∈ T (x.b ∈  [-1, 0, 1])$
 - Assim, deve-se checar o fator de balanço dos nós sempre após uma inserção ou remoção para, caso a árvore esteja desbalanceada, realizar rotações nos nós para garantir que esse fator esteja entre -1 e +1.
